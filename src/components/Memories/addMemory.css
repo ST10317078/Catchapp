@@ -1,0 +1,137 @@
+/* General Styling */
+.add-memory-container {
+  width: 100%;
+  max-width: 600px;
+  margin: 50px auto;
+  padding: 20px;
+  background-color: rgba(17, 25, 40, 0.85);
+  border-radius: 12px;
+  color: #fff;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.add-memory-container h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 24px;
+  font-weight: 600;
+  color: #fff;
+}
+
+/* Error Message Styling */
+.error-message {
+  color: #ff6b6b;
+  margin-bottom: 10px;
+  font-size: 14px;
+  text-align: center;
+}
+
+/* Form Styling */
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+textarea {
+  padding: 10px;
+  border-radius: 6px;
+  border: none;
+  font-size: 16px;
+  background-color: rgba(255, 255, 255, 0.1);
+  color: white;
+  resize: none;
+  height: 100px;
+}
+
+textarea::placeholder {
+  color: #ccc;
+}
+
+/* File Input Styling */
+.file-input-wrapper {
+  padding: 50px;
+  border-radius: 6px;
+  border: solid;
+  font-size: 16px;
+  background-color: rgba(24, 21, 21, 0.247);
+  color: white;
+  resize: none;
+  height: 100px;
+}
+
+label {
+  font-size: 16px;
+  color: white;
+}
+
+input[type="file"] {
+  padding: 10px;
+  background-color: #1f8ef1;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+input[type="file"]:hover {
+  background-color: #007bff;
+}
+
+/* Media Preview */
+.media-preview {
+  width: 100%;
+  max-height: 300px;
+  background-color: #000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 6px;
+  overflow: hidden;
+  margin-bottom: 20px;
+}
+
+.media-preview img,
+.media-preview video {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: cover;
+  border-radius: 6px;
+}
+
+/* Submit Button Styling */
+button[type="submit"] {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 6px;
+  background-color: #28a745;
+  color: white;
+  font-size: 18px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+button[type="submit"]:disabled {
+  background-color: #28a745a1;
+  cursor: not-allowed;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .add-memory-container {
+    width: 90%;
+    margin: 20px auto;
+    padding: 15px;
+  }
+
+  .media-preview {
+    height: 200px;
+  }
+
+  button[type="submit"] {
+    font-size: 16px;
+    padding: 8px 16px;
+  }
+}

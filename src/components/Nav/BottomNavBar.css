@@ -1,0 +1,31 @@
+.bottom-navbar {
+    display: flex;
+    justify-content: space-around;
+    background-color: #fff; /* Change to your preferred background color */
+    border-top: 1px solid #ccc;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 10px 0;
+    z-index: 1000; /* Ensures it's above other content */
+  }
+  
+  .nav-item {
+    text-align: center;
+    color: #555; /* Default icon color */
+    text-decoration: none;
+  }
+  
+  .nav-icon {
+    font-size: 24px; /* Icon size */
+  }
+  
+  .nav-item.active {
+    color: #007bff; /* Color for active link */
+  }
+  
+  .nav-item:hover {
+    color: #007bff; /* Color on hover */
+  }
+  
