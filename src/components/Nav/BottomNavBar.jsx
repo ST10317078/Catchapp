@@ -7,25 +7,25 @@ const BottomNavBar = () => {
 
   return (
     <div className="bottom-navbar">
-      <Link to="/chat" className={`nav-item ${location.pathname === '/chat' ? 'active' : ''}`}>
+      <Link to="/ChatPage" className={`nav-item ${location.pathname === '/chat' ? 'active' : ''}`}>
         <i className="nav-icon fas fa-comments"></i>
-        <span>Chat</span>
+        <span></span>
       </Link>
       <Link to="/communities" className={`nav-item ${location.pathname === '/communities' ? 'active' : ''}`}>
         <i className="nav-icon fas fa-users"></i>
-        <span>Communities</span>
+        <span></span>
       </Link>
       <Link to="/addMemory" className={`nav-item ${location.pathname === '/addMemory' ? 'active' : ''}`}>
         <i className="nav-icon fas fa-plus-circle"></i>
-        <span>Add Memory</span>
+        <span></span>
       </Link>
       <Link to="/MemoriesPage" className={`nav-item ${location.pathname === '/MemoriesPage' ? 'active' : ''}`}>
         <i className="nav-icon fas fa-images"></i>
-        <span>Memories</span>
+        <span></span>
       </Link>
       <Link to="/ProfilePage" className={`nav-item ${location.pathname === '/ProfilePage' ? 'active' : ''}`}>
         <i className="nav-icon fas fa-user"></i>
-        <span>Profile</span>
+        <span></span>
       </Link>
     </div>
   );

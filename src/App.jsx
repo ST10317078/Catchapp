@@ -10,7 +10,8 @@ import DealsPage from './components/Deals/DealsPage';
 import AddDeal from './components/Deals/AddDeal';
 import AddMemory from './components/Memories/addMemory';
 import MemoriesPage from './components/Memories/MemoriesPage';
-import BottomNavBar from './components/Nav/BottomNavBar'; // Import your BottomNavBar
+import BottomNavBar from './components/Nav/BottomNavBar'; 
+import ChatPage from './components/Chat/ChatPage';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import "./globals.css";
 
@@ -40,6 +41,7 @@ const App = () => {
               <Route path="/AddDeal" element={<AddDeal />} />
               <Route path="/DealsPage" element={<DealsPage />} />
               <Route path="/MemoriesPage" element={<MemoriesPage />} />
+              <Route path="/ChatPage" element={<ChatPage />} />
             </Routes>
             <BottomNavBar />
 

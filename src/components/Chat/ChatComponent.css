@@ -1,0 +1,86 @@
+.chat-window {
+    background-color: #1f2937; /* Slightly lighter dark background for contrast */
+    color: #ffffff; /* White text for better readability */
+    width: 100vw; /* Full width */
+    border-radius: 8px; /* Rounded corners */
+    display: flex;
+    flex-direction: column;
+    height: 100vh; /* Adjust height as necessary */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5); /* Shadow for depth */
+  }
+  
+  .chat-header {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid #4b5563; /* Border for header separation */
+  }
+  
+  .chat-profile-pic {
+    width: 40px; /* Profile picture size */
+    height: 40px;
+    border-radius: 50%; /* Circular profile picture */
+    margin-right: 10px; /* Space between image and text */
+  }
+  
+  .chat-username {
+    font-size: 18px; /* Username font size */
+    font-weight: bold; /* Bold username */
+  }
+  
+  .chat-history {
+    flex: 1; /* Take remaining space */
+    padding: 10px; /* Padding around chat history */
+    overflow-y: auto; /* Scrollable history */
+    max-height: 60vh; /* Limit height for scroll */
+  }
+  
+  .chat-message {
+    margin-bottom: 10px; /* Space between messages */
+    padding: 8px; /* Padding inside message */
+    border-radius: 5px; /* Rounded corners for messages */
+    background-color: #374151; /* Darker message background */
+  }
+  
+  .chat-message strong {
+    color: #93c5fd; /* Light color for sender name */
+  }
+  
+  .chat-input-container {
+    display: flex; /* Flex for input and button */
+    border-top: 1px solid #4b5563; /* Border for input separation */
+    margin-top: 100px;
+}
+  
+  .chat-input {
+    flex: 1; /* Take remaining space */
+    padding: 10px; /* Padding inside input */
+    border: none; /* No border */
+    border-radius: 5px; /* Rounded corners */
+    margin-right: 10px; /* Space between input and button */
+    background-color: #374151; /* Dark input background */
+    color: #ffffff; /* White text */
+    width: 80%;
+  }
+  
+  .chat-input::placeholder {
+    color: #9ca3af; /* Placeholder color */
+  }
+  
+  .send-button {
+    padding: 20px; /* Padding inside button */
+    border: none; /* No border */
+    border-radius: 5px; /* Rounded corners */
+    background-color: #3b82f6; /* Button background color */
+    color: #ffffff; /* Button text color */
+    cursor: pointer; /* Pointer cursor on hover */
+    transition: background-color 0.3s; /* Transition for hover effect */
+    width: 20%;
+    height: 100%;
+
+}
+  
+  .send-button:hover {
+    background-color: #2563eb; /* Darker blue on hover */
+  }
+  
