@@ -1,43 +1,58 @@
-import React, { useState } from 'react';
-import './ChatList.css'; // Add your CSS styles for the chat list
+import React, { useState, useEffect } from 'react';
+import './ChatPage.css'; // Import your styles
 
-const ChatList = ({ pinnedChats, onUserSelect, onPinChat, users }) => {
-  const [searchTerm, setSearchTerm] = useState('');
+const ChatList = ({ users, pinnedChats, onUserSelect, currentUserId }) => {
+  const [searchQuery, setSearchQuery] = useState('');
 
-  const filteredUsers = users.filter(user =>
-    user.username.toLowerCase().includes(searchTerm.toLowerCase())
+  // Filter users based on search query
+  const filteredUsers = users.filter((user) => 
+    user.username.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
   return (
     <div className="chat-list">
-      <h2>Pinned Chats</h2>
+      <div className="chat-list-header">Chat</div>
+
+      <div className="search-bar">
+        <input
+          type="text"
+          placeholder="Search users..."
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+          className="search-input"
+        />
+      </div>
+
       <div className="pinned-chats">
+        <h4>Pinned Chats</h4>
         {pinnedChats.map((user) => (
-          <div key={user.id} className="chat-item" onClick={() => onUserSelect(user)}>
-            <img src={user.profilePicUrl} alt="Profile" className="chat-profile-pic" />
+          <div 
+            key={user.id} 
+            className="chat-list-item"
+            onClick={() => onUserSelect(user)}
+          >
+            <img src={user.profilePicUrl || 'https://via.placeholder.com/40'} alt="Profile" />
             <span>{user.username}</span>
           </div>
         ))}
       </div>
 
-      <h2>Search Users</h2>
-      <input
-        type="text"
-        value={searchTerm}
-        onChange={(e) => setSearchTerm(e.target.value)}
-        placeholder="Search users..."
-        className="search-input"
-      />
-
-      <h2>Users</h2>
-      {filteredUsers.map((user) => (
-        <div key={user.id} className="chat-item" onClick={() => { onUserSelect(user); onPinChat(user); }}>
-          <img src={user.profilePicUrl} alt="Profile" className="chat-profile-pic" />
-          <span>{user.username}</span>
-        </div>
-      ))}
+      <div className="all-users">
+        <h4>All Users</h4>
+        {filteredUsers.map((user) => (
+          <div 
+            key={user.id} 
+            className="chat-list-item"
+            onClick={() => onUserSelect(user)}
+          >
+            <img src={user.profilePicUrl || 'https://via.placeholder.com/40'} alt="Profile" />
+            <span>{user.username}</span>
+          </div>
+        ))}
+      </div>
     </div>
   );
 };
 
 export default ChatList;
+
