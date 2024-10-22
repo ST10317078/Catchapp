@@ -4,6 +4,8 @@
   border-radius: 8px; /* Rounded corners */
   padding: 16px;
   height: 100%; /* Full height */
+  width: 100vw; /* Full height */
+
   display: flex;
   flex-direction: column;
 }
