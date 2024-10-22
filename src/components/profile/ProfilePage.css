@@ -1,92 +1,281 @@
-.chat-page {
-  display: flex;
-  height: 100vh;
-  background-color: #111827; /* Dark background */
-  color: #f9fafb; /* Light text for contrast */
-}
+.profile-page {
+  max-width: 100%;
+  overflow-x: hidden; /* Prevent horizontal overflow */
+  font-family: 'Arial', sans-serif;
+  margin-top: 600px;
 
-.chat-sidebar {
-  width: 30%;
+  }
+  
+  .cover-photo-container {
+    margin-top: 450px;
+    width: 100%;
+    height: 250px;
+    overflow: hidden;
+    position: relative;
+  }
+  
+  .cover-photo {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  .profile-header-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: -75px; /* Overlapping effect */
+  }
+  
+  .profile-header-content {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    background: white;
+    border-radius: 15px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 600px;
+    width: 100%;
+  }
+  
+  .profile-image-container {
+    position: relative;
+    width: 150px;
+    height: 150px;
+    overflow: hidden;
+    border-radius: 50%;
+    border: 4px solid white;
+    margin-top: -75px;
+  }
+  
+  .profile-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  .profile-info-container {
+    text-align: center;
+    margin-top: 20px;
+  }
+  
+  .profile-username {
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+  }
+  
+  .profile-bio {
+    margin-top: 10px;
+    color: #666;
+  }
+  
+  .profile-location {
+    margin-top: 5px;
+    font-size: 14px;
+    color: #888;
+  }
+  
+  .profile-stats {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+  }
+  
+  .stat-item {
+    text-align: center;
+  }
+  
+  .stat-value {
+    font-size: 20px;
+    font-weight: bold;
+    color: #000000;
+
+  }
+  
+  .stat-label {
+    font-size: 12px;
+    color: #777;
+  }
+  
+  .edit-profile-button {
+    margin-top: 15px;
+    padding: 8px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .edit-profile-button:hover {
+    background-color: #162331a9;
+  }
+  
+  .add-memory-container {
+    margin-top: 20px;
+    text-align: center;
+  }
+  
+  .add-memory-button {
+    padding: 10px 20px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .add-memory-button:hover {
+    background-color: #218838;
+  }
+  
+  /* Container for the memories grid */
+.memory-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* 3 by 3 layout */
+  gap: 20px;
   padding: 20px;
-  border-right: 1px solid #374151;
-  overflow-y: auto;
 }
 
-.chat-list {
-  list-style: none;
-  padding: 0;
+/* For smaller screens, adjust the grid to have fewer columns */
+@media (max-width: 768px) {
+  .memory-grid {
+    grid-template-columns: repeat(2, 1fr); /* 2 by 2 layout for smaller screens */
+  }
+}
+
+@media (max-width: 480px) {
+  .memory-grid {
+    grid-template-columns: 1fr; /* Single column for very small screens */
+  }
+}
+
+.memory-item {
+  position: relative;
+}
+
+.memory-image, .memory-video {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.memory-caption {
+  text-align: center;
+  font-size: 14px;
+  margin-top: 5px;
+}
+
+/* Modal Overlay */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+.modal-content {
+  background: transparent; /* No background for a more immersive look */
+  position: relative;
+  max-width: 90%;
+  max-height: 90%;
+  overflow: hidden; /* Hide overflow to keep modal neat */
+}
+
+.enlarged-media {
+  width: 100%;
+  height: auto;
+  max-height: 500px; /* Adjust max height as needed */
+  border-radius: 10px;
+}
+
+.modal-stats {
+  position: absolute;
+  bottom: 10px; /* Position at the bottom of the video */
+  left: 10px; /* Adjust as necessary */
+  color: white; /* Text color */
+  background: rgba(0, 0, 0, 0.7); /* Semi-transparent background */
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.modal-stats h3 {
+  font-size: 16px;
   margin: 0;
 }
 
-.chat-list-item {
-  display: flex;
-  align-items: center;
-  padding: 10px;
-  border-bottom: 1px solid #374151;
-  cursor: pointer;
-  transition: background 0.3s ease;
+.modal-stats p {
+  margin: 5px 0;
 }
 
-.chat-list-item:hover {
-  background-color: #1f2937; /* Lighter dark background on hover */
-}
-
-.chat-list-item img {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  margin-right: 10px;
-}
-
-.chat-list-item span {
-  font-size: 1rem;
-  font-weight: 500;
-}
-
-.chat-box {
-  width: 70%;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
-
-.chat-header {
-  padding: 20px;
-  border-bottom: 1px solid #374151;
-}
-
-.chat-messages {
-  flex: 1;
-  padding: 20px;
-  overflow-y: auto;
-}
-
-.chat-input {
-  display: flex;
-  padding: 20px;
-  border-top: 1px solid #374151;
-  background-color: #1f2937; /* Darker background for input section */
-}
-
-.chat-input input {
-  flex: 1;
-  padding: 10px;
-  background-color: #111827;
-  border: 1px solid #374151;
-  border-radius: 5px;
-  color: #f9fafb;
-}
-
-.chat-input button {
-  margin-left: 10px;
-  padding: 10px 20px;
-  background-color: #4f46e5; /* Blue primary button */
+.close-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
   border: none;
-  color: #f9fafb;
-  border-radius: 5px;
+  font-size: 24px;
   cursor: pointer;
+  color: #fff; /* Close button color */
 }
 
-.chat-input button:hover {
-  background-color: #6366f1;
+.delete-button {
+  background-color: #ff4d4d; /* Red background */
+  color: white; /* White text */
+  border: none; /* No border */
+  border-radius: 5px; /* Rounded corners */
+  padding: 10px 15px; /* Padding */
+  cursor: pointer; /* Pointer cursor */
+  margin-top: 10px; /* Space above */
+}
+
+.delete-button:hover {
+  background-color: #e60000; /* Darker red on hover */
+}
+
+.delete-button {
+  background-color: #ff4d4d; /* Red background */
+  color: white; /* White text */
+  border: none;
+  border-radius: 5px;
+  padding: 10px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.delete-button:hover {
+  background-color: #e60000; /* Darker red on hover */
+}
+
+.loading-indicator {
+  margin-top: 20px;
+  font-size: 16px;
+  color: #555;
+}
+
+.loader {
+  border: 2px solid transparent; /* Outer circle */
+  border-top: 2px solid #000000; /* Color of the loader */
+  border-radius: 50%; /* Make it circular */
+  width: 15px; /* Width of the loader */
+  height: 15px; /* Height of the loader */
+  animation: spin 1s linear inSfinite; /* Animation */
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }

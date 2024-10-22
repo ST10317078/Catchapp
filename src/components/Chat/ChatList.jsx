@@ -1,65 +1,41 @@
-import React from 'react';
-import './ChatList.css'; // Add your CSS styles for chat list
+import React, { useState } from 'react';
+import './ChatList.css'; // Add your CSS styles for the chat list
 
-const ChatList = ({ pinnedChats, onUserSelect, searchTerm, setSearchTerm, searchUsers, searchResults, pinChat }) => {
+const ChatList = ({ pinnedChats, onUserSelect, onPinChat, users }) => {
+  const [searchTerm, setSearchTerm] = useState('');
+
+  const filteredUsers = users.filter(user =>
+    user.username.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
   return (
     <div className="chat-list">
-      {/* Search bar */}
+      <h2>Pinned Chats</h2>
+      <div className="pinned-chats">
+        {pinnedChats.map((user) => (
+          <div key={user.id} className="chat-item" onClick={() => onUserSelect(user)}>
+            <img src={user.profilePicUrl} alt="Profile" className="chat-profile-pic" />
+            <span>{user.username}</span>
+          </div>
+        ))}
+      </div>
+
+      <h2>Search Users</h2>
       <input
         type="text"
-        placeholder="Search users..."
         value={searchTerm}
-        onChange={(e) => {
-          setSearchTerm(e.target.value);
-          searchUsers(e.target.value); // Call searchUsers on input change
-        }}
+        onChange={(e) => setSearchTerm(e.target.value)}
+        placeholder="Search users..."
         className="search-input"
       />
 
-
-      {/* Render search results if any */}
-      {searchResults.length > 0 && (
-        <div className="search-results">
-          {searchResults.map((user) => (
-            <div
-              key={user.id}
-              className="user-search-result"
-              onClick={() => {
-                onUserSelect(user);
-                pinChat(user); // Pin chat once user is selected
-              }}
-            >
-              <img
-                src={user.profilePicUrl || 'https://via.placeholder.com/40'}
-                alt="Profile"
-                className="search-profile-pic"
-              />
-              <span className="search-username">{user.username}</span>
-            </div>
-          ))}
+      <h2>Users</h2>
+      {filteredUsers.map((user) => (
+        <div key={user.id} className="chat-item" onClick={() => { onUserSelect(user); onPinChat(user); }}>
+          <img src={user.profilePicUrl} alt="Profile" className="chat-profile-pic" />
+          <span>{user.username}</span>
         </div>
-      )}
-
-
-<h3>Pinned Chats</h3>
-      {pinnedChats.length > 0 ? (
-        pinnedChats.map((user) => (
-          <div
-            key={user.id}
-            className="pinned-chat"
-            onClick={() => onUserSelect(user)}
-          >
-            <img
-              src={user.profilePicUrl || 'https://via.placeholder.com/40'}
-              alt="Profile"
-              className="chat-profile-pic"
-            />
-            <span className="chat-username">{user.username}</span>
-          </div>
-        ))
-      ) : (
-        <p>No pinned chats</p>
-      )}
+      ))}
     </div>
   );
 };
