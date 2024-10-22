@@ -1,101 +1,57 @@
 import React, { useState, useEffect } from 'react';
-import { doc, updateDoc, arrayUnion, setDoc } from 'firebase/firestore';
-import './ChatComponent.css'; // Your CSS styles for chat
-import { db } from '../../firebase'; // Your Firestore setup
+import { doc, updateDoc, arrayUnion } from 'firebase/firestore';
+import { db } from '../../firebase'; // Import Firestore instance
+import './ChatPage.css'; // Import styles
 
 const ChatComponent = ({ selectedUser, currentUserId, onPinChat }) => {
   const [message, setMessage] = useState('');
   const [chatHistory, setChatHistory] = useState([]); // Mock chat history
 
-  useEffect(() => {
-    // Fetch chat history when selectedUser changes (can be updated with actual Firestore fetching logic)
-    if (selectedUser && selectedUser.id) {
-      console.log("Fetching chat history for user: ", selectedUser.id);
-      // Fetch chat history from Firestore here if needed
-    }
-  }, [selectedUser]);
-
   const handleSendMessage = async () => {
-    // Ensure the message, currentUserId, and selectedUser are all defined
-    if (!message.trim()) {
-      console.error("Message is empty");
-      return;
-    }
-    if (!currentUserId) {
-      console.error("Current user ID is undefined");
-      return;
-    }
-    if (!selectedUser || !selectedUser.id) {
-      console.error("Selected user or their ID is undefined");
-      return;
-    }
+    if (message.trim() && currentUserId && selectedUser.id) {
+      const chatMessage = {
+        senderId: currentUserId,
+        receiverId: selectedUser.id,
+        message,
+        timestamp: new Date(),
+      };
 
-    const newMessage = {
-      senderId: currentUserId,
-      receiverId: selectedUser.id,
-      message,
-      timestamp: new Date(),
-    };
+      // Append to local chat history
+      setChatHistory([...chatHistory, { sender: 'You', message }]);
 
-    try {
-      // Send message to Firestore
-      await sendMessageToChat(newMessage, currentUserId, selectedUser.id);
+      // Save message to Firestore (example path, adjust according to your structure)
+      const chatDocRef = doc(db, 'chats', `${currentUserId}_${selectedUser.id}`);
+      await updateDoc(chatDocRef, {
+        messages: arrayUnion(chatMessage),
+      });
 
-      // Update local chat history
-      setChatHistory((prevHistory) => [...prevHistory, newMessage]);
-
-      // Automatically pin the sender to the receiver's pinned chat list
+      // Pin chat
       await pinSenderToReceiver(selectedUser.id, currentUserId);
 
-      // Pin the chat in the current user's chat list
-      onPinChat(selectedUser);
-
-      setMessage(''); // Clear input field after sending
-    } catch (error) {
-      console.error("Error sending message or pinning chat:", error);
+      setMessage(''); // Clear input after sending
     }
   };
 
-  const sendMessageToChat = async (newMessage, senderId, receiverId) => {
-    const chatDocRef = doc(db, 'chats', `${senderId}_${receiverId}`);
-    const receiverChatDocRef = doc(db, 'chats', `${receiverId}_${senderId}`);
-
-    if (newMessage) {
-      await setDoc(chatDocRef, {
-        messages: arrayUnion(newMessage),
-      }, { merge: true });
-
-      await setDoc(receiverChatDocRef, {
-        messages: arrayUnion(newMessage),
-      }, { merge: true });
-    }
-  };
-
+  // Pin chat function
   const pinSenderToReceiver = async (receiverId, senderId) => {
-    const receiverDocRef = doc(db, 'users', receiverId);
-
-    if (senderId) {
-      await updateDoc(receiverDocRef, {
-        pinnedChats: arrayUnion(senderId),
-      });
-    }
+    const receiverDocRef = doc(db, 'users', receiverId); // Reference to the receiver's user document
+    await updateDoc(receiverDocRef, {
+      pinnedChats: arrayUnion(senderId),
+    });
+    onPinChat(selectedUser);
   };
 
   return (
     <div className="chat-window">
       <div className="chat-header">
-        <img
-          src={selectedUser?.profilePicUrl || 'https://via.placeholder.com/40'}
-          alt="Profile"
-          className="chat-profile-pic"
-        />
-        <span className="chat-username">{selectedUser?.username || 'Unknown User'}</span>
+        <img src={selectedUser.profilePicUrl || 'https://via.placeholder.com/50'} alt="Profile" />
+        <span>{selectedUser.username}</span>
       </div>
 
       <div className="chat-history">
         {chatHistory.map((chat, index) => (
           <div key={index} className="chat-message">
-            <strong>{chat.senderId === currentUserId ? 'You' : selectedUser.username}:</strong> {chat.message}
+            <strong>{chat.sender}:</strong> {chat.message}
           </div>
         ))}
       </div>
