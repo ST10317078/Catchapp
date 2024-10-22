@@ -55,4 +55,3 @@ const ChatList = ({ users, pinnedChats, onUserSelect, currentUserId }) => {
 };
 
 export default ChatList;
-
