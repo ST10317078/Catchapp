@@ -1,23 +1,25 @@
 import React, { useState, useEffect } from 'react';
-import { db } from '../../firebase'; // Import Firebase Firestore instance
-import { collection, getDocs } from 'firebase/firestore'; // Firestore methods
 import ChatList from './ChatList';
 import ChatComponent from './ChatComponent';
-import './ChatPage.css'; // CSS for the chat page
+import { db } from '../../firebase';
+import { collection, getDocs } from 'firebase/firestore';
+import './ChatPage.css';
 
 const ChatPage = ({ currentUserId }) => {
   const [selectedUser, setSelectedUser] = useState(null);
-  const [pinnedChats, setPinnedChats] = useState([]); // List of pinned chats
-  const [users, setUsers] = useState([]); // List of all users
+  const [pinnedChats, setPinnedChats] = useState([]);
+  const [users, setUsers] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  // Fetch users from Firestore
   useEffect(() => {
     const fetchUsers = async () => {
       try {
         const usersData = await getUsersFromFirestore();
-        setUsers(usersData); // Set the users in state
+        setUsers(usersData);
       } catch (error) {
         console.error("Error fetching users:", error);
+      } finally {
+        setLoading(false);
       }
     };
 
@@ -30,14 +32,18 @@ const ChatPage = ({ currentUserId }) => {
 
   const handlePinChat = (user) => {
     if (!pinnedChats.find((chat) => chat.id === user.id)) {
-      setPinnedChats([...pinnedChats, user]); // Pin the chat if not already pinned
+      setPinnedChats([...pinnedChats, user]);
     }
   };
+
+  if (loading) {
+    return <div>Loading users...</div>;
+  }
 
   return (
     <div className="chat-page">
       <ChatList
-        users={users} // Pass the users array to ChatList
+        users={users}
         pinnedChats={pinnedChats}
         onUserSelect={handleUserSelect}
         currentUserId={currentUserId}
@@ -45,7 +51,7 @@ const ChatPage = ({ currentUserId }) => {
       {selectedUser && (
         <ChatComponent
           selectedUser={selectedUser}
-          currentUserId={currentUserId}
+          currentUserId={currentUserId} // Ensure the current user ID is passed here
           onPinChat={handlePinChat}
         />
       )}
@@ -53,15 +59,14 @@ const ChatPage = ({ currentUserId }) => {
   );
 };
 
-// Define the function to fetch users from Firestore
+// Function to fetch users from Firestore
 const getUsersFromFirestore = async () => {
-  const usersCollection = collection(db, 'users'); // Reference to the 'users' collection
+  const usersCollection = collection(db, 'users');
   const usersSnapshot = await getDocs(usersCollection);
-  const usersList = usersSnapshot.docs.map(doc => ({
-    id: doc.id, // Firebase document ID
-    ...doc.data() // All other user data
+  return usersSnapshot.docs.map(doc => ({
+    id: doc.id,
+    ...doc.data(),
   }));
-  return usersList;
 };
 
 export default ChatPage;
