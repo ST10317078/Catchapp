@@ -7,9 +7,15 @@ const ChatComponent = ({ selectedUser, currentUserId, onPinChat }) => {
   const [message, setMessage] = useState('');
   const [chatHistory, setChatHistory] = useState([]);
 
+  // Create a unique chat ID that works for both users (sender and receiver)
+  const getChatId = (id1, id2) => {
+    return [id1, id2].sort().join('_'); // Sort the user IDs alphabetically to ensure consistent chat ID
+  };
+
   useEffect(() => {
     if (selectedUser && currentUserId) {
-      const chatDocRef = doc(db, 'chats', `${currentUserId}_${selectedUser.id}`);
+      const chatId = getChatId(currentUserId, selectedUser.id); // Generate the chat ID
+      const chatDocRef = doc(db, 'chats', chatId);
 
       const unsubscribe = onSnapshot(chatDocRef, (docSnapshot) => {
         if (docSnapshot.exists()) {
@@ -26,7 +32,8 @@ const ChatComponent = ({ selectedUser, currentUserId, onPinChat }) => {
 
   const handleSendMessage = async () => {
     if (message.trim() && selectedUser && currentUserId) {
-      const chatDocRef = doc(db, 'chats', `${currentUserId}_${selectedUser.id}`);
+      const chatId = getChatId(currentUserId, selectedUser.id); // Generate the chat ID
+      const chatDocRef = doc(db, 'chats', chatId);
       const newMessage = {
         senderId: currentUserId,
         receiverId: selectedUser.id,
