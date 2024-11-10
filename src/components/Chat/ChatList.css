@@ -1,36 +1,76 @@
+
+/* Chat List Styling */
 .chat-list {
-  background-color: #222; /* Slightly lighter dark background */
-  color: white; /* Text color */
-  padding: 16px;
-  border-radius: 8px; /* Rounded corners */
+  width: 100%;
+  border-right: 1px solid #2d3748;
+  overflow-y: auto;
+  padding: 20px;
+  box-sizing: border-box;
 }
 
-.pinned-chats {
-  margin-bottom: 16px;
+.chat-list-header {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 10px;
 }
 
-.chat-item {
+.chat-list-item {
   display: flex;
   align-items: center;
   padding: 10px;
   cursor: pointer;
+  border-bottom: 1px solid #e0e0e0;
+  position: relative;
 }
 
-.chat-profile-pic {
-  border-radius: 50%; /* Circular profile picture */
-  width: 30px;
-  height: 30px;
+.chat-details {
+  flex-grow: 1;
+  margin-left: 10px;
+}
+
+.chat-preview {
+  font-size: 12px;
+  color: #888;
+}
+
+.unread-dot {
+  width: 10px;
+  height: 10px;
+  background-color: green;
+  border-radius: 50%;
+  margin-left: 5px;
+}
+
+.read-dot {
+  width: 10px;
+  height: 10px;
+  background-color: gray;
+  border-radius: 50%;
+  position: absolute;
+  right: 10px; /* Position the gray dot to the right */
+}
+
+
+.chat-list-item:hover {
+  background-color: #f0f0f0;
+}
+
+
+.chat-list-item:hover {
+  background-color: #2d3748; /* Hover effect */
+}
+
+.chat-list-item img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
   margin-right: 10px;
 }
 
-.chat-item:hover {
-  background-color: #333; /* Highlight on hover */
+.chat-list-item span {
+  font-size: 18px;
 }
 
-.search-input {
-  padding: 10px;
-  margin-bottom: 10px;
-  border-radius: 4px;
-  border: 1px solid #ccc;
-  width: 100%;
+.pinned-chats {
+  margin-top: 20px;
 }

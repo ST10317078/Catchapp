@@ -4,6 +4,7 @@ import ChatComponent from './ChatComponent';
 import { db } from '../../firebase';
 import { collection, getDocs } from 'firebase/firestore';
 import './ChatPage.css';
+import BottomNavbar from '../Nav/BottomNavBar'
 
 const ChatPage = ({ currentUserId }) => {
   const [selectedUser, setSelectedUser] = useState(null);
@@ -55,6 +56,8 @@ const ChatPage = ({ currentUserId }) => {
           onPinChat={handlePinChat}
         />
       )}
+     <BottomNavbar />
+
     </div>
   );
 };
